@@ -1,0 +1,9 @@
+{
+    "version": 2,
+    "alias": "adventuregroup",
+    "name": "adventuregroup-client",
+    "routes": [
+        { "handle": "filesystem" },
+        { "src": "/.*", "dest": "/index.html" }
+    ]
+  }
