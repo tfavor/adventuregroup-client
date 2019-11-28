@@ -1,0 +1,19 @@
+.navbar {
+    height: 44px;
+    background-color: grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+}
+.navbar > h1 {
+    margin: 0px 0px 0px 20px;
+    font-size: 20px;
+}
+.navbar > button {
+    margin-right: 10px;
+    border: none;
+    background-color: transparent;
+}
