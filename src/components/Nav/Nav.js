@@ -15,11 +15,11 @@ class Nav extends Component {
     return (
       <nav className="navbar">
         <h1>AdventureGroup</h1>
-        <div class="buttons">
-            <button onclick="window.location.href = '../create-event/create-event-name/create-event-name.html'">create event</button>
+        <div className="buttons">
+            <button>create event</button>
             {isLoggedIn 
-                ? (<button onclick="window.location.href = '../signup/signup.html'">log in</button>) 
-                : (<button onclick="window.location.href = '../signup/signup.html'">sign up</button>)
+                ? (<button>log in</button>) 
+                : (<button>sign up</button>)
             }
         </div>
       </nav>
