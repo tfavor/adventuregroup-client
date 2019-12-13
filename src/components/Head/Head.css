@@ -1,6 +1,15 @@
 .head {
   padding-top: 44px;
   background-color: lightgray;
-  height: 576px;
+  height: 270px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.head-container {
+  margin: 0px 20px 0px 20px;
+}
+.head-container > p {
+  margin: 0;
 }

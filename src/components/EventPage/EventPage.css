@@ -1,0 +1,203 @@
+.eventHeader {
+  background-color: lightgray;
+  width: 100%;
+  padding-top: 44px;
+}
+.event-img-div {
+  height: 200px; 
+  margin-right: 0;
+}
+.event-img-div > div {
+  height: 200px; 
+  background-color: red;
+}
+.header {
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.header > h2 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.buttons > button {
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 50px;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+}
+.details {
+  text-align: left;
+  margin-top: 40px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.details > h3 {
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+p {
+  margin-top:0;
+  margin-left: 10px;
+  font-size: 16px;
+}
+.comments-list {
+  list-style: none;
+  padding-left: 20px;
+  margin-bottom: 0px;
+}
+.comments > h3 {
+  margin-top: 0px;
+  margin-left: 10px;
+}
+.comments-list > li > div {
+  display: flex;
+  flex-direction: row;
+}
+.comments-list > li > div > p {
+  margin-bottom: 10px;
+}
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid black;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  font-size: 16px;
+}
+.users {
+  background-color: lightgray;
+  text-align: center;
+  padding-bottom: 10px;
+  margin-top: 20px;
+}
+.users-number {
+  background-color: grey;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.users-number > p {
+  margin-left: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.users-list {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.users-list > li {
+  width: calc(25% - 15px);
+  text-align: center;
+  border: 1px solid black;
+  margin-top: 10px;
+}
+.show-more {
+  margin-left: 20px;
+  background-color: grey;
+  border-radius: 50px;
+  width: 75px;
+  height: 20px;
+  font-size: 12px;
+}
+.show-all  {
+  margin-right: 5px;
+  background-color: grey;
+  border-radius: 50px;
+  width: 75px;
+  height: 20px;
+  font-size: 12px;
+}
+.comments-form {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.discussion-board-link-container {
+  background-color: grey;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.discussion-board-link {
+  margin-left: 20px;
+}
+.footer {
+  text-align: center;
+  background-color: grey;
+  height: 40px;
+}
+@media only screen and (min-width:600px) {
+  .eventHeader {
+    display: flex;
+    flex-direction: row;
+  }
+  .header {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+  .event-img-div {
+      width: 40%;
+  }
+  .event-img-div > div{
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      margin-left: 20px;
+      margin-top: 10px;
+  }
+  .attend {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: none;
+  }
+  .details {
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+  .users-comments {
+      border-top: 1px solid lightgray;
+      width: calc(100% - 40px);
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: 20px;
+  }
+
+  .users-list > li {
+      width: calc(50% - 15px);
+  }
+  .users {
+      width: 40%;
+      max-width: 271px;
+  }
+  .comments {
+      width: 40%;
+  }
+  textarea {
+      height: 100%;
+      max-width: 530px;
+  }
+}

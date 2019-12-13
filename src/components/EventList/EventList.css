@@ -1,0 +1,64 @@
+
+.events {
+  text-align: center;
+  margin: 0;
+  border-bottom: 0.5px solid black;
+  border-top: 0.5px solid black;
+  padding-bottom: 20px;
+}
+.event-list {
+  padding-left: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+}
+.event-list-item {
+  width: calc(50% - 15px);
+  background-color: lightgray;
+  height: 200px;
+  margin-top: 10px;
+  text-align: center;
+}
+.event-list-item:nth-child(even) {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+.event-list-item:nth-child(odd) {
+  margin-right: 5px;
+  margin-left: 10px;
+}
+@media only screen and (min-width:600px) {
+  .events {
+    /*max-width: 980px;*/
+    margin: auto;
+  }
+  .event-list-item {
+    width: calc(33.33% - 10px);
+  }
+  .event-list-item:nth-child(even) {
+      margin-left: 5px;
+      margin-right: 5px;
+  }
+  .event-list-item:nth-child(odd) {
+      margin-right: 5px;
+      margin-left: 5px;
+  }
+}
+@media only screen and (min-width:900px) {
+  .event-list-item {
+    height: 220px;
+  }
+  .event-list-item {
+    width: calc(25% - 10px);
+  }
+  .event-list-item:nth-child(even) {
+      margin-left: 5px;
+      margin-right: 5px;
+  }
+  .event-list-item:nth-child(odd) {
+      margin-right: 5px;
+      margin-left: 5px;
+  }
+}

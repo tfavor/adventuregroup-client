@@ -8,12 +8,40 @@
     width: 100%;
     position: fixed;
 }
-.navbar > h1 {
+.navbar > .title {
     margin: 0px 0px 0px 20px;
-    font-size: 20px;
+    font-size: 16px;
+    color: black;
 }
 .navbar > button {
     margin-right: 10px;
     border: none;
     background-color: transparent;
 }
+.logout-link {
+  cursor: pointer;
+  font-size: 12px;
+  padding-left: 5px;
+  border-left: 1px solid black;
+  color: black;
+}
+.create-event-link {
+  padding-right: 5px;
+}
+.login-link {
+  cursor: pointer;
+  border-left: 1px solid black;
+  font-size: 12px;
+  padding-left: 5px;
+  color: black;
+}
+.create-event-link, .signup-link {
+  cursor: pointer;
+  color: black;
+  font-size: 12px;
+  padding-left: 10px;
+}
+.signup-link  {
+  padding-right: 20px;
+}
+

@@ -1,26 +1,41 @@
 import React, { Component } from 'react';
 import './Nav.css';
 import { Route, Link } from 'react-router-dom'
+import ApiContext from '../../ApiContext'
 
 class Nav extends Component {
-    constructor(props) {
-        super(props)
-        this.state={
-            isLoggedIn: false,
-        }
-    }
+   
+  static contextType = ApiContext;
+
+  handleLogout = () => {
+    this.context.handleLogout()
+  }
 
   render() {
-      const isLoggedIn = this.state.isLoggedIn
+      const isLoggedIn = this.context.loggedIn
     return (
       <nav className="navbar">
-        <h1>AdventureGroup</h1>
+        <Link className="title" to="/" style={{ textDecoration: 'none' }}>AdventureGroup</Link>
         <div className="buttons">
-            <button>create event</button>
+            <Link 
+              className="create-event-link" 
+              to="/create_event" 
+              style={{ textDecoration: 'none' }}>create event</Link>
             {isLoggedIn 
-                ? (<button>log in</button>) 
-                : (<button>sign up</button>)
+                ? (<Link 
+                     className="logout-link" 
+                     to="/"
+                     style={{ textDecoration: 'none' }}
+                     onClick={this.handleLogout}>log out</Link>) 
+                : (<Link 
+                      className="login-link"
+                      to="/login"
+                      style={{ textDecoration: 'none' }}>log in</Link>)
             }
+            <Link 
+              className="signup-link" 
+              to="/signup" 
+              style={{ textDecoration: 'none' }}>sign up</Link>
         </div>
       </nav>
     )
