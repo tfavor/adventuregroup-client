@@ -1,15 +1,34 @@
 .head {
   padding-top: 44px;
-  background-color: lightgray;
-  height: 270px;
+  width: 100%;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 .head-container {
   margin: 0px 20px 0px 20px;
+  width: 100%;
 }
-.head-container > p {
-  margin: 0;
+.quote {
+  position: absolute;
+  margin: auto;
+  font-size: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  color: #ecf3f9;
+  font-weight: bold;
+}
+img {
+  box-sizing: border-box;
+  margin: auto;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+@media only screen and (min-width:600px) {
+  .quote {
+    font-size: 35px;
+  }
 }

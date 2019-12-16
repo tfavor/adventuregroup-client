@@ -1,20 +1,40 @@
-
+.user-list-section {
+  background-color: #ecf3f9;
+  padding-bottom: 40px;
+  padding-top: 20px;
+}
 .user-list-container {
-  background-color: lightgray;
+  /*background-color: lightgray;*/
+  border-radius: 5px;
+  border: 0.6px solid lightgray;
   width: 35%;
   text-align: center;
   margin-left: 20px;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  background-color: white;
 }
 .users-list-header {
-  background-color: grey
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: grey;
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 16px;
 }
 .user-list {
   list-style-type: none;
   padding: 0;
 }
 .user-list > li {
-  border-bottom: 1px solid black;
-
+  display: flex;
+  justify-content: center;
+  border-bottom: 0.3px solid lightgray;
+  font-size: 12px;
+  
+}
+.user-list > li > p {
+  padding-top: 10px;
+}
+ul > li:first-child > p {
+  
 }

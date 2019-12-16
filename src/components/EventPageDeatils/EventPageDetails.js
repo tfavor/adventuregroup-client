@@ -5,7 +5,6 @@ import config from '../../config'
 
 class EventPageDetails extends Component {
   render() {
-    console.log(this.props)
     return (
       <div className="details">
             <div className="date">

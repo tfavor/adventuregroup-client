@@ -2,32 +2,63 @@
 .events {
   text-align: center;
   margin: 0;
-  border-bottom: 0.5px solid black;
-  border-top: 0.5px solid black;
   padding-bottom: 20px;
 }
 .event-list {
   padding-left: 0;
   padding: 0;
+  margin-top: 0;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
   list-style: none;
 }
 .event-list-item {
-  width: calc(50% - 15px);
-  background-color: lightgray;
-  height: 200px;
-  margin-top: 10px;
+  box-shadow: 0 0 2px 0 rgba(46,62,72,.12), 0 2px 4px 0 rgba(46,62,72,.12);
+  border-radius: 10px;
+  width: 100%;
+  background-color: white;
+  height: 100%;
   text-align: center;
+  margin: 10px;
+  margin-top: 10px;
 }
-.event-list-item:nth-child(even) {
-  margin-left: 5px;
+.event-searchg-form {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
   margin-right: 10px;
 }
-.event-list-item:nth-child(odd) {
-  margin-right: 5px;
+.event-searchg-form > input[name=location] {
+  border: 0.5px solid black;
+  margin: 0;
+  width: 200px;
+  border-radius: 5px;
+  height: 30px;
+  padding-left: 10px;
+}
+.event-searchg-form > button[type=submit] {
+  border: 0.5px solid black;
+  border-radius: 5px;
+  height: 30px;
+  width: 60px;
+  padding: 0;
   margin-left: 10px;
+  background-color: transparent;
+}
+.event-select-container {
+  text-align: left;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+.event-select-container > select {
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid black;
+}
+@media only screen and (min-width:400px) {
+
 }
 @media only screen and (min-width:600px) {
   .events {
@@ -35,30 +66,21 @@
     margin: auto;
   }
   .event-list-item {
-    width: calc(33.33% - 10px);
+    border-radius: 10px;
+    display: inline-block;
+    width: 240px;
+    height: 360px;
+    background-color: white;
   }
   .event-list-item:nth-child(even) {
-      margin-left: 5px;
+      margin-left: 10px;
       margin-right: 5px;
   }
   .event-list-item:nth-child(odd) {
       margin-right: 5px;
-      margin-left: 5px;
+      margin-left: 10px;
   }
 }
 @media only screen and (min-width:900px) {
-  .event-list-item {
-    height: 220px;
-  }
-  .event-list-item {
-    width: calc(25% - 10px);
-  }
-  .event-list-item:nth-child(even) {
-      margin-left: 5px;
-      margin-right: 5px;
-  }
-  .event-list-item:nth-child(odd) {
-      margin-right: 5px;
-      margin-left: 5px;
-  }
+
 }

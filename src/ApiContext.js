@@ -1,15 +1,8 @@
 import React from 'react'
 
 export default React.createContext({
-    userId: '',
+    user: '',
     eventsAll: [],
-    eventsAttending: [],
-    hikingEvents: [],
-    bikingEvents: [],
-    climbingEvents: [],
-    campingEvents: [],
-    waterEvents: [],
-    otherEvents: [],
     discussionCards: [],
     discussionCardComments: [],
     handleAddEvent: () => {},

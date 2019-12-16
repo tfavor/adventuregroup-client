@@ -10,12 +10,19 @@ class CreateEvent extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     const target = event.target
-    console.log(target.type.value)
+
+    const dateTimeInout = target.datetime.value
+    const time = new Date(dateTimeInout).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")
+    const foo = new Date(dateTimeInout)
+    const year = foo.getFullYear()
+    const month = foo.getMonth() + 1
+    const day = foo.getDate()
+    const dateTime = month + "-" + day + "-" + year + ", " + time
     const newEvent = {
       id: Math.random(),
       name: target.name.value,
       location: target.location.value,
-      date: target.date.value,
+      date: dateTime,
       type: target.type.value,
       description: target.description.value,
       creator: this.context.user.userName,
@@ -26,17 +33,16 @@ class CreateEvent extends Component {
   }
 
   render() {
-    console.log()
     return (
       <div className="createEvent">
         <form className="createEvent-Form" onSubmit={this.handleSubmit}>
           <legend>Create Event</legend>
           <label>event name</label>
-            <input name="name" type="text" ></input>
+            <input name="name" type="text" placeholder="event Name"></input>
           <label>event location</label>
-            <input name="location" type="text"></input>
-          <label>event date</label>
-            <input name="date" type="date"></input>
+            <input name="location" type="text" placeholder="City, State"></input>
+          <label>date-time</label>
+            <input name="datetime" type="datetime-local"></input>
           <label>type</label>
             <select name="type">
               <option value="hiking">Hiking</option>
@@ -46,8 +52,8 @@ class CreateEvent extends Component {
               <option value="water">Water</option>
               <option value="other">Other</option>
             </select>
-          <label>description</label>
-            <textarea name="description"/>
+          <label className="description">description</label>
+            <textarea name="description" placeholder="event details"/>
           <button type="submit">create</button>
         </form>
       </div>

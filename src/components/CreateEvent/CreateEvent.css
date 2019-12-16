@@ -2,21 +2,59 @@
   padding-top: 64px;
 }
 .createEvent-Form {
-  border: 1px solid black;
-  width: 75%;
+  width: 90%;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 .createEvent-Form > legend {
+  font-size: 20px;
   margin-bottom: 40px;
+}
+.createEvent-Form > label {
+  font-size: 16px;
 }
 input {
   margin-bottom: 20px;
 }
 input[type=text] {
   border: 0.5px solid black;
-  width: 100%;
-  padding: 0;
+  width: 200px;
+  padding-left: 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  height: 25px;
+}
+input[type=datetime-local] {
+  width: 200px;
+  height: 25px;
+  font-size: 12px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-top: 5px;
+}
+.createEvent-Form > select {
+  font-size: 12px;
+  border: 1px solid black;
+  width: 210px;
+  height: 25px;
+  padding-left: 5px;
+  margin-top: 5px;
+}
+.createEvent-Form > .description {
+  margin-top: 20px;
+}
+.createEvent-Form > textarea {
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.createEvent-Form > button {
+  margin-top: 20px;
+  font-size: 16px;
+  width: 100px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 5px;
 }

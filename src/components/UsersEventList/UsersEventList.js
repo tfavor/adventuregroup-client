@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import ApiContext from '../../ApiContext'
 import Event from '../Event/Event'
+import img from '../../images/default-event-img.jpg'
+import { attendingFunction, createdFunction } from '../../events.helper'
 import './UsersEventList.css'
 
 class UsersEventList extends Component {
@@ -21,12 +23,12 @@ class UsersEventList extends Component {
     })
   }
 
-  renderList = () => {
+  renderList = (attendingFunction, createdFunction) => {
     let eventList = []
     if(this.state.type === 'Attending') {
-      eventList = this.context.eventsAttending
+      eventList = attendingFunction(this.context.eventsAll, this.context.user)
     } else if(this.state.type === 'Created') {
-      eventList = this.context.eventsCreated
+      eventList = createdFunction(this.context.eventsAll, this.context.user)
     } 
 
     return (
@@ -36,9 +38,15 @@ class UsersEventList extends Component {
           <div className="user-event">
             <Link
             className="user-event-link"
-            to={`/event/${event.id}`}>
-              <div className="user-event-img">img</div>
-              <h2>{event.name}</h2>
+            to={`/event/${event.id}`}
+            style={{ textDecoration: 'none' }}>
+              <img className="user-event-img" src={img}></img>
+              <div className="info">
+                <p className="date">{event.date}</p>
+                <h2 className="name">{event.name}</h2>
+                <p className="location">{event.location}</p>
+                <p className="user-number">{event.users_attending.length} going</p>
+              </div>
             </Link>
           </div>
         </li>)}
@@ -50,15 +58,13 @@ class UsersEventList extends Component {
     return (
       <div className="user-events">
         <div className="user-event-search-form-container">
-          <form className="event-searchg-form">
-            <select onChange={this.handleChange}>
-              <option value="Attending">Events you are attending</option>
-              <option value="Created">Events you created</option>
-            </select>
-          </form>
+          <select onChange={this.handleChange}>
+            <option value="Attending">Events you are attending</option>
+            <option value="Created">Events you created</option>
+          </select>
         </div>
         <ul className="user-event-list">
-          {this.renderList()}
+          {this.renderList(attendingFunction , createdFunction)}
         </ul>
       </div>
     ) 

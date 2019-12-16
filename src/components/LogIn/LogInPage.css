@@ -1,7 +1,38 @@
 .login {
-  padding-top: 44px;
+  padding-top: 64px;
 }
 .login-form {
   margin: auto;
-  width: 75%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-form > legend {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+.login-form > label {
+  font-size: 16px;
+}
+input[type=text] {
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 12px;
+  padding-left: 10px;
+  width: 200px;
+  height: 25px;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.login-form > button {
+  margin-top: 0px;
+  font-size: 16px;
+  width: 100px;
+  height: 25px;
+  border: 1px solid black;
+  border-radius: 5px;
 }

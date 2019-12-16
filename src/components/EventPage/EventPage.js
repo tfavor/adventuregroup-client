@@ -6,6 +6,7 @@ import EventPageDetails from '../EventPageDeatils/EventPageDetails'
 import DiscussionCard from '../DiscussionCard/DiscussionCard'
 import DiscussionBoard from '../DiscussionBoard/DiscussionBoard';
 import Attendees from '../Attendees/Attendees'
+import img from '../../images/default-event-img.jpg'
 import {  Link } from 'react-router-dom'
 
 class EventPage extends Component {
@@ -93,10 +94,8 @@ class EventPage extends Component {
     return (
       <div>
         <div className="eventHeader">
-          <div className="event-img-div">
-              <div>
-                  <div className="img">img</div>
-              </div>
+          <div className="event-page-img-div">
+            <img className="event-page-img" src={img}></img>
           </div>
           <div className="header">
             <h2>{event.name}</h2>
@@ -105,16 +104,8 @@ class EventPage extends Component {
             </div>
           </div>
         </div>
+        <div className="gap"></div>
         <EventPageDetails event={event}/>
-        <div className="discussion-board-link-container">
-          <Link className="discussion-board-link" to={{
-            pathname: `/event/${event.id}/discussion`,
-            state: {
-              eventId: event.id
-            }
-          }}>discussion board
-          </Link>
-        </div>
         <Attendees event={event}/>
       </div>
     )

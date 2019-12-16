@@ -29,10 +29,15 @@ handleSubmit= ev => {
     return (
       <div className="signup">
         <form className="signup-form" onSubmit={this.handleSubmit}>
-          <label>Sign up</label>
-          <input type="text" id="userName" placeholder="username"/>
-          <input type="text" id="password" placeholder="password"/>
-          <input type="text" id="reenterPassword" placeholder="reenter password"/>
+          <legend>Sign up</legend>
+          <div className="input-container">
+            <label>user name</label>
+              <input type="text" id="userName" placeholder="username"/>
+            <label>password</label>
+              <input type="text" id="password" placeholder="password"/>
+            <label>re-enter password</label>
+              <input type="text" id="reenterPassword" placeholder="re-enter password"/>
+          </div>
           <button type="submit">Sign Up</button>
         </form>
       </div>

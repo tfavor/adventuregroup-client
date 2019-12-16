@@ -69,7 +69,8 @@ class DiscussionBoard extends Component {
         <form className="discussion-board-form" onSubmit={this.handleSubmit}>
           <textarea name="cardContent" placeholder="ask any question or share any idea"></textarea>
           <button type="submit">submit</button>
-          <ul className=''>
+          </form>  
+          <ul className=''>  
           {cards.map(card =>
             <li key={card.id}>
              <DiscussionCard
@@ -79,7 +80,6 @@ class DiscussionBoard extends Component {
             </li>
             )}
         </ul>
-        </form>
       </div>
     )
   }
