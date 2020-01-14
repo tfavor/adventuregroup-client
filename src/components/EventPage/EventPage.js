@@ -8,6 +8,9 @@ import DiscussionBoard from '../DiscussionBoard/DiscussionBoard';
 import Attendees from '../Attendees/Attendees'
 import img from '../../images/default-event-img.jpg'
 import {  Link } from 'react-router-dom'
+import TokenService from '../../services/token-service'
+import EventApiService from '../../services/events-api-service'
+import AttendeeService from '../../services/attendee-api-service'
 
 class EventPage extends Component {
   constructor(props) {
@@ -46,9 +49,22 @@ class EventPage extends Component {
   
 
   handleAttend = (e) => {
-    const userName = this.context.user.userName
-    const event = this.context.eventsAll.find(event => event.id === e)
-    this.context.attendEvent(userName, event)
+    console.log(e)
+    const newAttendee = {
+      event_id: e,
+      user_name: this.context.user,
+      creator: false
+    }
+
+    AttendeeService.PostNewAttendee(newAttendee)
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => {
+      this.setState({
+          error: err.message
+      });
+    });
   }
 
   handleEddit = (e) => {
@@ -56,22 +72,30 @@ class EventPage extends Component {
   }
 
   handleMissOut = (e) => {
-    
-    const userName = this.context.user.userName
-    const event = this.context.eventsAll.find(event => event.id === e)
-    this.context.missOut(userName, event)
+    const eventsAttending = this.context.eventsAttending
+    const thisEvent = eventsAttending.find(instance => instance.event_id === e)
+    AttendeeService.DeleteAttendee(thisEvent.id)
+    .then(data => {
+      this.context.missOut(thisEvent.id)
+    })
+    .catch(err => {
+      this.setState({
+        error: err.message
+      });
+    });
   }
   
   renderButton = (event) => {
-   const user= this.context.user
-   if (user.id === event.creator) {
+    const eventsAttending = this.context.eventsAttending
+   const thisEvent = eventsAttending.find(instance => instance.event_id === event.id && instance.user_name === this.context.user)
+   if(thisEvent !== undefined && thisEvent.creator === true) {
      return (
       <>
         <button type="button" className="editBotton" onClick={e => this.handleDelete(event.id)}>edit</button>
         <button type="button" className="deleteBotton" onClick={e => this.handleDelete(event.id)}>delete</button>
       </>
      )
-   } else if(event.users_attending.includes(user.userName)){
+   } else if(thisEvent !== undefined){
     return (
       <>
        <button type="button" className="unattendButton" onClick={e => this.handleMissOut(event.id)}>miss out</button>

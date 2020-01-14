@@ -28,13 +28,7 @@ class Attendees extends Component {
       <div className="user-list-section">
         <div className="user-list-container">
           <h3 className="users-list-header">{this.state.users.length} going</h3>
-            <ul className="user-list">
-            {this.state.users.slice(0, this.state.itemsToShow).map((user, i) =>
-              <li key={i} className="user">
-                <p>{user}</p>
-              </li>
-              )}
-            </ul>
+
             <button  onClick={this.showMore}>
               {this.state.expanded ? (
                 <span>Show less</span>
@@ -50,3 +44,10 @@ class Attendees extends Component {
 
 export default Attendees
 
+ /*<ul className="user-list">
+            {this.state.users.slice(0, this.state.itemsToShow).map((user, i) =>
+              <li key={i} className="user">
+                <p>{user}</p>
+              </li>
+              )}
+            </ul>*/

@@ -20,3 +20,11 @@
   border: 1px solid black;
   border-radius: 5px;
 }
+#password {
+  margin-bottom: 5px;
+}
+.password-requirments {
+  font-size: 12px;
+  text-align: left;
+  padding: 0;
+}

@@ -12,11 +12,18 @@ class Home extends Component {
 
   static contextType = ApiContext;
 
+  renderUsersEvents = () => {
+    const loggedIn = this.context.loggedIn
+    if(loggedIn) {
+      return (<UsersEventList/>)
+    }
+  }
+
   render() {
     return (
       <div className="home">
         <Head/>
-        <UsersEventList/>
+        {this.renderUsersEvents()}
         <EventList/>
       </div>
     )

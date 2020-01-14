@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import './CreateEvent.css'
 import ApiContext from '../../ApiContext'
+import DateTimePicker from 'react-datetime-picker';
 import { Route, Link } from 'react-router-dom'
+import config from '../../config'
+import EventApiService from '../../services/events-api-service'
+import AttendeeService from '../../services/attendee-api-service'
+
 
 class CreateEvent extends Component {
 
@@ -9,27 +14,33 @@ class CreateEvent extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    const target = event.target
 
-    const dateTimeInout = target.datetime.value
-    const time = new Date(dateTimeInout).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")
-    const foo = new Date(dateTimeInout)
-    const year = foo.getFullYear()
-    const month = foo.getMonth() + 1
-    const day = foo.getDate()
-    const dateTime = month + "-" + day + "-" + year + ", " + time
+    const target = event.target
     const newEvent = {
       id: Math.random(),
       name: target.name.value,
       location: target.location.value,
-      date: dateTime,
+      date: target.datetime.value,
       type: target.type.value,
-      description: target.description.value,
-      creator: this.context.user.userName,
-      users_attending: [],
+      details: target.description.value,
+      users_attending: this.context.user,
     }
-    this.context.handleCreateEvent(newEvent)
-    this.props.history.push('/')
+
+    EventApiService.PostEvent(newEvent)
+    .then(res => {
+      console.log(res)
+      const newAttendee = {
+        user_name: this.context.user,
+        event_id: res.id,
+        creator: true,
+      }
+      this.context.handleCreateEvent(newEvent)
+      AttendeeService.PostNewAttendee(newAttendee)
+      this.props.history.push(`/`)
+    })
+    .catch(res => {
+      this.setState({ error: res.error })
+    })
   }
 
   render() {
@@ -42,7 +53,7 @@ class CreateEvent extends Component {
           <label>event location</label>
             <input name="location" type="text" placeholder="City, State"></input>
           <label>date-time</label>
-            <input name="datetime" type="datetime-local"></input>
+            <input name="datetime" type="datetime-local"></input>          
           <label>type</label>
             <select name="type">
               <option value="hiking">Hiking</option>
@@ -62,3 +73,4 @@ class CreateEvent extends Component {
 }
 
 export default CreateEvent
+ 

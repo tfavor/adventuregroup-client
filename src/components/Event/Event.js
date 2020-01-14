@@ -17,7 +17,7 @@ class Event extends Component {
               <p className="event-date">{this.props.event.date}</p>
               <h2 className="event-name">{this.props.event.name}</h2>
               <p className="event-location">{this.props.event.location}</p>
-              <p className="event-user-number">{this.props.event.users_attending.length} going</p>
+              <p className="event-user-number">{this.props.event.users_attending} going</p>
             </div>
         </Link>
       </div>

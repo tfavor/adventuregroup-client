@@ -23,17 +23,30 @@ class UsersEventList extends Component {
     })
   }
 
+
+
   renderList = (attendingFunction, createdFunction) => {
     let eventList = []
+    const eventsIds = []
+    const events = []
     if(this.state.type === 'Attending') {
-      eventList = attendingFunction(this.context.eventsAll, this.context.user)
+      eventList = this.context.eventsAttending.filter(event => event.creator == false)
     } else if(this.state.type === 'Created') {
-      eventList = createdFunction(this.context.eventsAll, this.context.user)
-    } 
+      eventList = this.context.eventsAttending.filter(event => event.creator == true)
+    }
 
+    for(let i = 0; i < eventList.length; i++) {
+     eventsIds.push(eventList[i].event_id)
+    }
+
+    
+    for(let i = 0; i < eventsIds.length; i++) {
+      events.push(this.context.eventsAll.find(event => event.id === eventsIds[i]))
+    }
+    
     return (
       <>
-      {eventList.map(event => 
+      {events.map(event => 
         <li className="user-event-list-item" key={event.id}>
           <div className="user-event">
             <Link
@@ -45,7 +58,7 @@ class UsersEventList extends Component {
                 <p className="date">{event.date}</p>
                 <h2 className="name">{event.name}</h2>
                 <p className="location">{event.location}</p>
-                <p className="user-number">{event.users_attending.length} going</p>
+                
               </div>
             </Link>
           </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import jwtDecode from 'jwt-decode'
 import { Route, Link } from 'react-router-dom'
 import config from './config'
 import Nav from './components/Nav/Nav'
@@ -12,37 +13,75 @@ import LogInPage from './components/LogIn/LogInPage'
 import DiscussionBoard from './components/DiscussionBoard/DiscussionBoard'
 import ApiContext from './ApiContext'
 import STORE from './STORE'
+import TokenService from './services/token-service'
+import IdleService from './services/idle-service'
+import AuthApiService from './services/auth-api-service'
+import EventApiService from './services/events-api-service'
+import AttendeeService from './services/attendee-api-service'
+import Attendees from './components/Attendees/Attendees';
 
 class App extends Component {
   state = {
-    user: '',
+    user: null,
     eventsAll: [],
-    discussionCards: [],
-    discussionCardComments: [],
+    eventsAttending: [],
   }
 
   componentDidMount() {
-    const user = STORE.users[1]
-    const eventsAll = STORE.eventsAll
-    const discussionCards = STORE.discussionCards
-    const discussionCardComments = STORE.discussionCardComments
     this.setState({
-      eventsAll: eventsAll,
-      discussionCards: discussionCards,
-      discussionCardComments: discussionCardComments,
-      loggedIn: false
+      user: window.sessionStorage.getItem('user_name')
     })
-    if(window.localStorage.getItem(config.TOKEN_KEY) === null) {
+
+    IdleService.setIdleCallback(this.handleLogout)
+    if (TokenService.hasAuthToken()) {
       this.setState({
-        user: '',
-        loggedIn: false
+        loggedIn: true
+      })
+      /*
+        tell the idle service to register event listeners
+        the event listeners are fired when a user does something, e.g. move their mouse
+        if the user doesn't trigger one of these event listeners,
+          the idleCallback (logout) will be invoked
+      */
+      IdleService.regiserIdleTimerResets()
+
+      /*
+        Tell the token service to read the JWT, looking at the exp value
+        and queue a timeout just before the token expires
+      */
+      TokenService.queueCallbackBeforeExpiry(() => {
+        /* the timoue will call this callback just before the token expires */
+        AuthApiService.postRefreshToken()
       })
     } else {
       this.setState({
-        user: user,
-        loggedIn: true
+
       })
     }
+
+    EventApiService.GetAllEvents()
+      .then(res => {
+        this.setState({
+          eventsAll: res
+        })
+          this.fetchAttending()
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+      })
+
+  }
+
+  componentWillUnmount() {
+    /*
+      when the app unmounts,
+      stop the event listeners that auto logout (clear the token from storage)
+    */
+    IdleService.unRegisterIdleResets()
+    /*
+      and remove the refresh endpoint request
+    */
+    TokenService.clearCallbackBeforeExpiry()
   }
 
   renderMainRoutes() {
@@ -57,15 +96,38 @@ class App extends Component {
     )
   }
 
-  handleLogin = () => {
+  handleLogin = (user_name) => {
+    window.sessionStorage.setItem('user_name', user_name)
     this.setState({
-      loggedIn: true
+      user: window.sessionStorage.getItem('user_name')
+    })
+    this.fetchAttending()
+  }
+
+  fetchAttending = () => {    
+    AttendeeService.GetByUsername()
+    .then(attendees => {
+      this.setState({
+        eventsAttending: attendees,
+        loggedIn: true
+      })
     })
   }
 
   handleLogout = () => {
+    window.sessionStorage.removeItem('user_name')
+    TokenService.clearAuthToken()
+    TokenService.clearCallbackBeforeExpiry()
+    IdleService.unRegisterIdleResets()
+    this.forceUpdate()
     this.setState({
-      loggedIn: false
+      loggedIn: false,
+    })
+  }
+
+  handleSignup = () => {
+    this.setState({
+      loggedIn: true
     })
   }
 
@@ -101,8 +163,10 @@ class App extends Component {
       })
   }
 
-  missOut = (userName, event) => {
-    const eventsAll = this.state.eventsAll
+  missOut = (id) => {
+    const attendingList = this.context.eventsAttending.filter(instance => instance.id !== id)
+    console.log(id)
+    /*const eventsAll = this.state.eventsAll
     const eventIndex = eventsAll.indexOf(event)
     let userList = [...event.users_attending]
     const userToRemove = event.users_attending.find(user => user === userName)
@@ -114,7 +178,7 @@ class App extends Component {
       this.setState({
         eventsAll: eventsAll
       })
-    }
+    }*/
   }
 
   createCard = (card) => {
@@ -138,11 +202,11 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state)
     const values = {
       user: this.state.user,
       eventsAll: this.state.eventsAll,
-      discussionCards: this.state.discussionCards,
-      discussionCardComments: this.state.discussionCardComments,
+      eventsAttending: this.state.eventsAttending,
       loggedIn: this.state.loggedIn,
       handleLogin: this.handleLogin,
       handleLogout: this.handleLogout,
