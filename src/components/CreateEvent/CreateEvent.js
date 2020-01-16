@@ -27,15 +27,17 @@ class CreateEvent extends Component {
     }
 
     EventApiService.PostEvent(newEvent)
-    .then(res => {
-      console.log(res)
+    .then(eventRes => {
       const newAttendee = {
         user_name: this.context.user,
-        event_id: res.id,
+        event_id: eventRes.id,
         creator: true,
       }
-      this.context.handleCreateEvent(newEvent)
       AttendeeService.PostNewAttendee(newAttendee)
+      .then(attendeeRes => {
+        console.log(attendeeRes)
+        this.context.handleCreateEvent(eventRes, attendeeRes)
+      })
       this.props.history.push(`/`)
     })
     .catch(res => {

@@ -25,6 +25,7 @@ class App extends Component {
     user: null,
     eventsAll: [],
     eventsAttending: [],
+    eventsCreated: [],
   }
 
   componentDidMount() {
@@ -64,7 +65,9 @@ class App extends Component {
         this.setState({
           eventsAll: res
         })
+        if(this.state.user !== null) {
           this.fetchAttending()
+        }
       })
       .catch(res => {
         this.setState({ error: res.error })
@@ -108,7 +111,8 @@ class App extends Component {
     AttendeeService.GetByUsername()
     .then(attendees => {
       this.setState({
-        eventsAttending: attendees,
+        eventsAttending: attendees.filter(event => event.creator == false),
+        eventsCreated: attendees.filter(event => event.creator == true),
         loggedIn: true
       })
     })
@@ -131,74 +135,57 @@ class App extends Component {
     })
   }
 
-  handleCreateEvent = (newEvent) => {
-    const eventList = this.state.eventsAll
+  handleCreateEvent = (newEvent, newAttendee) => {
+    
+    const eventList = [...this.state.eventsAll]
     eventList.push(newEvent)
     this.setState({
       eventsAll: eventList
     })
+
+    const createdList = [...this.state.eventsCreated]
+    createdList.push(newAttendee)
+    this.setState({
+      eventsCreated: createdList
+    })
   }
 
-  deleteEvent = (id) => {
+  deleteEvent = (id, attendee) => {
+    console.log('here')
     const eventsAll = [...this.state.eventsAll]
-    const eventToDelete = this.state.eventsCreated.find(event => event.id === id)
+    const eventList = eventsAll.filter(event => event.id !== id)
+
+    const eventsCreated = [...this.state.eventsCreated]
+    const createdList = eventsCreated.filter(event => event.id !== attendee)
+
+    this.setState({
+      eventsAll: eventList,
+      eventsCreated: createdList
+    })
+    /*const eventsAll = [...this.state.eventsAll]
+    const eventToDelete = this.state.eventsAll.find(event => event.id === id)
     const index = this.state.eventsAll.indexOf(eventToDelete)
     if(index !== -1) {
       eventsAll.splice(index, 1)
       this.setState({
         eventsAll: eventsAll
       })
-    }
-  }
-
-  attendEvent = (user, event) => {
-    const eventsAll = this.state.eventsAll
-    const eventIndex = eventsAll.indexOf(event)
-    let userList = [...event.users_attending]
-    userList.push(user)
-    event.users_attending = userList
-    eventsAll.splice(eventIndex, 1, event)
-      this.setState({
-        eventsAll: eventsAll
-      })
-  }
-
-  missOut = (id) => {
-    const attendingList = this.context.eventsAttending.filter(instance => instance.id !== id)
-    console.log(id)
-    /*const eventsAll = this.state.eventsAll
-    const eventIndex = eventsAll.indexOf(event)
-    let userList = [...event.users_attending]
-    const userToRemove = event.users_attending.find(user => user === userName)
-    const userIndex = event.users_attending.indexOf(userToRemove)
-    if(userIndex !== -1) {
-      userList.splice(userIndex, 1)
-      event.users_attending = userList
-      eventsAll.splice(eventIndex, 1, event)
-      this.setState({
-        eventsAll: eventsAll
-      })
     }*/
   }
 
-  createCard = (card) => {
-    const cardList = [...this.state.discussionCards]
-    cardList.push(card)
+  attendEvent = (newaAttendee) => {
+    const attendingList = [...this.state.eventsAttending]
+    attendingList.push(newaAttendee)
     this.setState({
-      discussionCards: cardList
+      eventsAttending: attendingList
     })
   }
 
-  deleteCard = (id) => {
-    const cardList = [...this.state.discussionCards]
-    const cardToDelete = cardList.find(card => card.id === id)
-    const index = cardList.indexOf(cardToDelete)
-    if(index !== -1) {
-      cardList.splice(index, 1)
-      this.setState({
-        discussionCards: cardList
-      })
-    }
+  missOut = (id) => {
+    const attendingList = this.state.eventsAttending.filter(instance => instance.id !== id)
+    this.setState({
+      eventsAttending: attendingList
+    })
   }
 
   render() {
@@ -207,6 +194,7 @@ class App extends Component {
       user: this.state.user,
       eventsAll: this.state.eventsAll,
       eventsAttending: this.state.eventsAttending,
+      eventsCreated: this.state.eventsCreated,
       loggedIn: this.state.loggedIn,
       handleLogin: this.handleLogin,
       handleLogout: this.handleLogout,
@@ -214,8 +202,6 @@ class App extends Component {
       deleteEvent: this.deleteEvent,
       attendEvent: this.attendEvent,
       missOut: this.missOut,
-      createCard: this.createCard,
-      deleteCard: this.deleteCard,
     }
     return (
       <ApiContext.Provider value={values}>

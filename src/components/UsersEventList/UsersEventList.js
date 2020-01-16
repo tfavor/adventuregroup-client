@@ -30,9 +30,9 @@ class UsersEventList extends Component {
     const eventsIds = []
     const events = []
     if(this.state.type === 'Attending') {
-      eventList = this.context.eventsAttending.filter(event => event.creator == false)
+      eventList = this.context.eventsAttending
     } else if(this.state.type === 'Created') {
-      eventList = this.context.eventsAttending.filter(event => event.creator == true)
+      eventList = this.context.eventsCreated
     }
 
     for(let i = 0; i < eventList.length; i++) {

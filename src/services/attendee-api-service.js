@@ -7,7 +7,7 @@ const AttendeeService = {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        'Authorization': 'Bearer ' + window.sessionStorage.getItem(config.TOKEN_KEY)
+        'Authorization': 'Bearer ' + window.localStorage.getItem(config.TOKEN_KEY)
       },
     })
     .then(attendeesRes => 
@@ -29,25 +29,36 @@ const AttendeeService = {
       },
       body: JSON.stringify(newAttendee),
     })
-    .then(data => {
-      return data
-      })
+    .then(res =>
+      (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
+    )
+    .then(res => {
+      return res
+    })
+    .catch(err => {
+      console.error(err)
+    })
   },
   DeleteAttendee(id) {
     return fetch(`${config.API_ENDPOINT}/api/attending/${id}`, {
         method: 'DELETE',
         headers: {
-          'authorization': `Bearer ${window.sessionStorage.getItem(config.TOKEN_KEY)}`,
+          'Authorization': `Bearer ${window.sessionStorage.getItem(config.TOKEN_KEY)}`,
           'content-type': 'application/json'
         },
     })
-    .then(attendeesRes => 
-      (!attendeesRes.ok)
-          ? attendeesRes.json().then(e => Promise.reject(e))
-          : attendeesRes.json()
+    .then(res =>
+      (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.send
     )
-    .then(attendeesRes => {
-      return attendeesRes
+    .then(res => {
+      return res
+    })
+    .catch(err => {
+      console.error(err)
     })
   }
 }  

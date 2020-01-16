@@ -10,9 +10,7 @@ const EventApiService = {
           return eventsRes.json()
       })
       .then(events => {
-          
-          /*this.fetchAttending()*/
-          return events
+        return events
       })
   },
   PostEvent(newEvent) {
@@ -34,8 +32,25 @@ const EventApiService = {
       return res
     })
   },
-  DeleteEvent() {
-
+  DeleteEvent(id) {
+    return fetch(`${config.API_ENDPOINT}/api/events/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + window.sessionStorage.getItem(config.TOKEN_KEY),
+        'content-type': 'application/json'
+      },
+    })
+    .then(res =>
+      (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.send
+    )
+    .then(res => {
+        return res
+    })
+    .catch(err => {
+      console.error(err)
+    })
   },
 
 }

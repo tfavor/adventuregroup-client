@@ -71,8 +71,6 @@ class EventList extends Component {
         <div className="event-select-container">
           <select name="type" onChange={this.handleChange}>
             <option value="All">All Events</option>
-            <option value="Attending">Events you are attending</option>
-            <option value="Created">Events you created</option>
             <option value="Hiking">Hiking Events</option>
             <option value="Biking">Biking Events</option>
             <option value="Climbing">Climbing Events</option>

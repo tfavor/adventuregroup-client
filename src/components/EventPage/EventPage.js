@@ -28,37 +28,34 @@ class EventPage extends Component {
   static contextType = ApiContext;
 
   handleDelete = (e) => {
-    const id = e
-    fetch(`${config.API_ENDPOINT}/event/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'content-type': 'application/json'
-        },
-      })
-    .then(data => {
-        this.context.deleteEvent(id)
-        this.props.history.push('/')
+    const eventId = e
+    const eventsCreated = this.context.eventsCreated
+    const thisEvent = eventsCreated.find(instance => instance.event_id === e)
+    EventApiService.DeleteEvent(eventId)
+    .then(res => {
+      this.props.history.push('/')
+      this.context.deleteEvent(eventId, thisEvent.id)
+      console.log('here')
     })
     .catch(err => {
-      this.setState({
-        error: err.message
-      });
+      console.log(err)
     });
-    this.props.history.push('/')
+
     }
-  
 
   handleAttend = (e) => {
     console.log(e)
     const newAttendee = {
+      id: Math.random(),
       event_id: e,
       user_name: this.context.user,
       creator: false
     }
 
     AttendeeService.PostNewAttendee(newAttendee)
-    .then(data => {
-      console.log(data)
+    .then(res => {
+      this.context.attendEvent(res)
+      this.props.history.push('/')
     })
     .catch(err => {
       this.setState({
@@ -75,10 +72,13 @@ class EventPage extends Component {
     const eventsAttending = this.context.eventsAttending
     const thisEvent = eventsAttending.find(instance => instance.event_id === e)
     AttendeeService.DeleteAttendee(thisEvent.id)
-    .then(data => {
+    .then(res => {
+      console.log(this.context.eventsCreated)
       this.context.missOut(thisEvent.id)
+      this.props.history.push('/')
     })
     .catch(err => {
+      console.log(err)
       this.setState({
         error: err.message
       });
@@ -87,7 +87,10 @@ class EventPage extends Component {
   
   renderButton = (event) => {
     const eventsAttending = this.context.eventsAttending
-   const thisEvent = eventsAttending.find(instance => instance.event_id === event.id && instance.user_name === this.context.user)
+    const eventsCreated = this.context.eventsCreated
+   const thisEvent = eventsAttending.find(instance => instance.event_id === event.id && instance.user_name === this.context.user) 
+    || eventsCreated.find(instance => instance.event_id === event.id && instance.user_name === this.context.user)
+
    if(thisEvent !== undefined && thisEvent.creator === true) {
      return (
       <>
