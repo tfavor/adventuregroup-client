@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import jwtDecode from 'jwt-decode'
 import { Route, Link } from 'react-router-dom'
+import PrivateRoute from './components/PrivateRoute'
 import config from './config'
 import Nav from './components/Nav/Nav'
 import Head from './components/Head/Head'
@@ -26,6 +27,7 @@ class App extends Component {
     eventsAll: [],
     eventsAttending: [],
     eventsCreated: [],
+    loggedIn: false,
   }
 
   componentDidMount() {
@@ -87,22 +89,11 @@ class App extends Component {
     TokenService.clearCallbackBeforeExpiry()
   }
 
-  renderMainRoutes() {
-    return (
-      <>
-        <Route exact path='/' component={Home}/>
-        <Route exact path='/event/:event_id' component={EventPage}/>
-        <Route path='/create_event' component={CreateEvent}/>
-        <Route path="/signup" component={SignUp}/>
-        <Route path="/login" component={LogInPage}/>
-      </>
-    )
-  }
-
   handleLogin = (user_name) => {
     window.sessionStorage.setItem('user_name', user_name)
     this.setState({
-      user: window.sessionStorage.getItem('user_name')
+      user: window.sessionStorage.getItem('user_name'),
+      loggedIn: true,
     })
     this.fetchAttending()
   }
@@ -113,7 +104,6 @@ class App extends Component {
       this.setState({
         eventsAttending: attendees.filter(event => event.creator == false),
         eventsCreated: attendees.filter(event => event.creator == true),
-        loggedIn: true
       })
     })
   }
@@ -186,6 +176,18 @@ class App extends Component {
     this.setState({
       eventsAttending: attendingList
     })
+  }
+
+  renderMainRoutes() {
+    return (
+      <>
+        <Route exact path='/' component={Home}/>
+        <PrivateRoute exact path='/event/:event_id' component={EventPage}/>
+        <PrivateRoute path='/create_event' component={CreateEvent}/>
+        <Route path="/signup" component={SignUp}/>
+        <Route path="/login" component={LogInPage}/>
+      </>
+    )
   }
 
   render() {

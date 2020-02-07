@@ -13,29 +13,29 @@ class Nav extends Component {
 
   render() {
       const isLoggedIn = this.context.loggedIn
+      console.log(isLoggedIn)
     return (
       <nav className="navbar">
         <Link className="title" to="/" style={{ textDecoration: 'none' }}>AdventureGroup</Link>
         <div className="buttons">
-            <Link 
-              className="create-event-link" 
-              to="/create_event" 
-              style={{ textDecoration: 'none' }}>create event</Link>
+          
             {isLoggedIn 
                 ? (<Link 
                      className="logout-link" 
                      to="/"
                      style={{ textDecoration: 'none' }}
-                     onClick={this.handleLogout}>log out</Link>) 
-                : (<Link 
+                     onClick={this.handleLogout}>Log Out</Link>) 
+                : (<div className="login/signup-link">
+                    <Link 
                       className="login-link"
                       to="/login"
-                      style={{ textDecoration: 'none' }}>log in</Link>)
+                      style={{ textDecoration: 'none' }}>Log In</Link>
+                    <Link 
+                      className="signup-link" 
+                      to="/signup" 
+                      style={{ textDecoration: 'none' }}>Sign Up</Link>
+                </div>)
             }
-            <Link 
-              className="signup-link" 
-              to="/signup" 
-              style={{ textDecoration: 'none' }}>sign up</Link>
         </div>
       </nav>
     )

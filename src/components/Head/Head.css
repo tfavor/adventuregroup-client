@@ -1,34 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400&display=swap');
 .head {
+  font-family: 'Ubuntu', sans-serif;
+  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url(../../images/header.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   padding-top: 44px;
   width: 100%;
+  height: 75vh;
+  line-height: 1;
   text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+  color: white;
+  box-shadow: 0 0px 2px 0 rgba(46,62,72,.12), 0 2px 4px 0 rgba(46,62,72,.12);
+}
+.header{
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 35px;
+  font-weight: lighter;
 }
 .head-container {
   margin: 0px 20px 0px 20px;
   width: 100%;
 }
 .quote {
-  position: absolute;
+  font-size: 20px;
+  margin-bottom: 10px;
+  /*position: absolute;
   margin: auto;
   font-size: 20px;
   padding-left: 30px;
   padding-right: 30px;
   color: #ecf3f9;
-  font-weight: bold;
+  font-weight: bold;*/
 }
-img {
-  box-sizing: border-box;
-  margin: auto;
-  width: auto;
-  max-width: 100%;
-  height: auto;
+.head > .event-searchg-form > input[type=text] {
+  width: 75vw;
+  max-width: 400px;
+  height: 30px;
+  padding: 0;
+  padding-left: 10px;
+  margin: 0;
+  border: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.head > .event-searchg-form > button[type=submit] {
+  margin: 0;
+  background-color: white;
+  padding: 0;
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-left: 0.4px solid black;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0
+}
+.create-event-link {
+  color: white;
+  height: 15px;
+  line-height: 15px;
+  width: 160px;
+  background-color: #1034a6;
+  border-radius: 5px;
+  margin-top: 30px;
+  font-size: 16px;
+  padding: 0;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.create-event-link > #plus {
+  font-size: 12px;
+  margin-right: 5px;
 }
 @media only screen and (min-width:600px) {
-  .quote {
-    font-size: 35px;
-  }
+
 }
