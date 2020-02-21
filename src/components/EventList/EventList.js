@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import ApiContext from '../../ApiContext'
 import Event from '../Event/Event'
-import { eventListFunction } from '../../events.helper'
+import { eventListFunctionType, eventListFunctionLocation } from '../../events.helper'
 import './EventList.css'
 
 class EventList extends Component {
@@ -32,13 +32,13 @@ class EventList extends Component {
     })
   }
 
-  renderList = (eventListFunction) => {
+  renderList = (eventListFunctiontypeType) => {
     let eventListByType = []
     let eventList = []
-    if(this.state.type === 'All') {
+    if(this.context.filter === 'all') {
       eventListByType = this.context.eventsAll
     } else {
-      eventListByType = eventListFunction(this.context.eventsAll, this.state.type.toLowerCase())
+      eventListByType = eventListFunctionType(this.context.eventsAll, this.context.filter.toLowerCase())
     }
 
     if(this.state.location === '') {
@@ -62,25 +62,10 @@ class EventList extends Component {
     return (
       <div className="events">
         <div className="event-search-form-container">
-          <form className="event-searchg-form" onSubmit={this.handleSubmit}>
-            <input type="text" name="location" placeholder="city, state"/>
-            <button type="submit">search</button>
-          </form>
         </div>
         <div>
-        <div className="event-select-container">
-          <select name="type" onChange={this.handleChange}>
-            <option value="All">All Events</option>
-            <option value="Hiking">Hiking Events</option>
-            <option value="Biking">Biking Events</option>
-            <option value="Climbing">Climbing Events</option>
-            <option value="Camping">Camping Events</option>
-            <option value="Water">Water Events</option>
-            <option value="Other">Other Events</option>
-          </select>
-        </div> 
         <ul className="event-list">
-          {this.renderList(eventListFunction)}
+          {this.renderList(eventListFunctionType)}
         </ul>
         </div>
       </div>

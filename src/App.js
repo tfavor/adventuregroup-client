@@ -28,6 +28,8 @@ class App extends Component {
     eventsAttending: [],
     eventsCreated: [],
     loggedIn: false,
+    filter: 'all',
+    location: 'Austin, TX, USA'
   }
 
   componentDidMount() {
@@ -62,8 +64,11 @@ class App extends Component {
       })
     }
 
+    EventApiService.getIPAddress()
+
     EventApiService.GetAllEvents()
       .then(res => {
+        let events = res.filter(event => event.location == this.state.location)
         this.setState({
           eventsAll: res
         })
@@ -178,6 +183,12 @@ class App extends Component {
     })
   }
 
+  handleFilter = (type) => {
+    this.setState({
+      filter: type,
+    })
+  }
+
   renderMainRoutes() {
     return (
       <>
@@ -198,12 +209,14 @@ class App extends Component {
       eventsAttending: this.state.eventsAttending,
       eventsCreated: this.state.eventsCreated,
       loggedIn: this.state.loggedIn,
+      filter: this.state.filter,
       handleLogin: this.handleLogin,
       handleLogout: this.handleLogout,
       handleCreateEvent: this.handleCreateEvent,
       deleteEvent: this.deleteEvent,
       attendEvent: this.attendEvent,
       missOut: this.missOut,
+      handleFilter: this.handleFilter,
     }
     return (
       <ApiContext.Provider value={values}>

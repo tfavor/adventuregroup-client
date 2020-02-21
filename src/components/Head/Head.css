@@ -38,18 +38,87 @@
   color: #ecf3f9;
   font-weight: bold;*/
 }
-.head > .event-searchg-form > input[type=text] {
-  width: 75vw;
+.filter-search {
+  
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0;
+}
+.filte-container {
+  display: inline-block;
+  display: flex;
+  flex-direction: column;
+}
+.filter {
+  margin-right: -10px;
+  margin-bottom: 0px;
+  background-color: white;
+  border: none;
+  height: 30px;
+  width: 50px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0.4px solid black;
+}
+.event-searchg-form {
+  margin: 0;
+}
+/*.head > .filter-search > .event-searchg-form > input[type=text] {
+  width: 65vw;
   max-width: 400px;
   height: 30px;
   padding: 0;
   padding-left: 10px;
   margin: 0;
   border: none;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 0;
+  
+}*/
+
+.autocomplete-div {
+  height: 30px;
+  margin: 0;
 }
-.head > .event-searchg-form > button[type=submit] {
+.autocomplete-div > .autocomplete-input{
+  margin: 0;
+  width: 65vw;
+  max-width: 400px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  padding-left: 10px;
+  border: none;
+  border-radius: 0;
+}
+.autocomplete-suggestions {
+  text-align: left;
+  position: relative;
+  top: 0px;
+  width: 65vw;
+  max-width: 400px;
+  color: black;
+  font-size: 12px;
+  background-color: white;
+  margin: 0;
+  padding-top: 0px;
+  border: 0.4px solid black;
+  border-top: none;
+}
+.autocomplete-suggestions > .suggestion {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border: 0.4px solid black;
+  border-bottom: none;
+}
+.loading {
+  background-color: white;
+}
+
+.head > .filter-search > .event-searchg-form > button[type=submit] {
   margin: 0;
   background-color: white;
   padding: 0;
@@ -77,6 +146,32 @@
 .create-event-link > #plus {
   font-size: 12px;
   margin-right: 5px;
+}
+.eventOptions {
+  position: absolute;
+  display: block;
+  background-color: white;
+  border-radius: 5px;
+}
+.eventOptions > ul {
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style-type: none;
+}
+.eventOptions > ul > li {
+  margin-top: 5px;
+}
+.eventOptions > ul > li > button {
+  border: none;
+  margin-left: 5px;
+  font-size: 15px;
+  background-color: white; 
 }
 @media only screen and (min-width:600px) {
 

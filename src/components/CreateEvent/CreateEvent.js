@@ -6,9 +6,16 @@ import { Route, Link } from 'react-router-dom'
 import config from '../../config'
 import EventApiService from '../../services/events-api-service'
 import AttendeeService from '../../services/attendee-api-service'
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 
 class CreateEvent extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      address: ''
+    }
+  }
 
   static contextType = ApiContext;
 
@@ -19,7 +26,7 @@ class CreateEvent extends Component {
     const newEvent = {
       id: Math.random(),
       name: target.name.value,
-      location: target.location.value,
+      location: this.state.address,
       date: target.datetime.value,
       type: target.type.value,
       details: target.description.value,
@@ -45,6 +52,18 @@ class CreateEvent extends Component {
     })
   }
 
+  onChange = (e) => {
+    this.setState({
+      address: e
+    })
+  }
+
+  handleSelect = (value) => {
+    this.setState({
+      address: value
+    })
+  }
+
   render() {
     return (
       <div className="createEvent">
@@ -53,7 +72,30 @@ class CreateEvent extends Component {
           <label>event name</label>
             <input name="name" type="text" placeholder="event Name"></input>
           <label>event location</label>
-            <input name="location" type="text" placeholder="City, State"></input>
+
+
+            <PlacesAutocomplete 
+              value={this.state.address} 
+              onChange={this.onChange} 
+              onSelect={this.handleSelect}
+              >
+              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                <div className="autocomplete-div">
+                  <input className="autocomplete-input" {...getInputProps({placeholder: "search"})} />
+
+                  <div className="autocomplete-suggestions">
+                    {suggestions.map((suggestion, i) => {
+                      const style = {
+                        backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                      }
+                      return <div className="suggestion"{...getSuggestionItemProps(suggestion, {style})} key={i}>{suggestion.description}</div>
+                    })}
+                  </div>
+                </div>
+              )}
+            </PlacesAutocomplete>
+
+
           <label>date-time</label>
             <input name="datetime" type="datetime-local"></input>          
           <label>type</label>
@@ -75,4 +117,4 @@ class CreateEvent extends Component {
 }
 
 export default CreateEvent
- 
+ /*<input name="location" type="text" placeholder="City, State"></input> */
